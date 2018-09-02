@@ -70,7 +70,7 @@ bool runge_kutta_t1 (bool print) {
     double * x = new (nothrow) double[num_steps];
     if ( x == NULL ) {
 	   cout << "Memory could not be assigned dynamically for Integrator_test test1." << endl;
-	   return;
+	   return false;
     }
     double t = t0;
     x[0] = x0;
@@ -82,7 +82,7 @@ bool runge_kutta_t1 (bool print) {
         if (fabs(x[i+1] - x0 - pow(t, 2.0)) > 1e-6) {
             err_cnt++;
         }
-    	if (print && i % info_steps == 0 || i == num_steps - 2) {
+    	if (print && (i % info_steps == 0 || i == num_steps - 2)) {
             
     	    cout << "Timestep:\t" << i+1 << endl;
     	    cout << "Time:\t" << t << endl;
@@ -124,7 +124,7 @@ bool runge_kutta_t2(bool print) {
         if (fabs(xi(1) - x_analytical(1)) > 1e-6) {
             err_cnt++;
         }
-        if (print && i % info_steps == 0 || i == num_steps - 2) {
+        if (print && (i % info_steps == 0 || i == num_steps - 2)) {
             cout << "Timestep:\t" << i+1 << endl;
             cout << "Time:\t" << t << endl;
             cout << "Estimated:\t" << '\n' << xi << endl;
@@ -148,7 +148,7 @@ int main(int argv, char* argc[]) {
     }
     unsigned int fail = 0;
     short tests[] = {0, 1};
-    if(tests[0] && !runge_kutta_t1(print))
+    if (tests[0] && !runge_kutta_t1(print))
         fail++;
     if (tests[1] && !runge_kutta_t2(print))
         fail++;
