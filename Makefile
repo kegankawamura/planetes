@@ -1,21 +1,23 @@
 CC = g++
 ODIR = obj
+SDIR = src
+TESTDIR = $(SDIR)/test
 
 
 all:
 
 clean:
 	rm bin/*
-	rm obj/*
+	rm $(ODIR)/*
 
 test:
 
 integrator_test: integrator_test.o NumIntegrators.o
-	$(CC) -o bin/integrator_test obj/NumIntegrators.o obj/integrator_test.o
+	$(CC) -o bin/integrator_test $(ODIR)/NumIntegrators.o $(ODIR)/integrator_test.o
 	
-integrator_test.o: test/integrator_test.cpp
-	$(CC) -o obj/integrator_test.o -c test/integrator_test.cpp
+integrator_test.o: $(TESTDIR)/integrator_test.cpp
+	$(CC) -o $(ODIR)/integrator_test.o -c $(TESTDIR)/integrator_test.cpp
 
-NumIntegrators.o: tools/NumIntegrators.cpp tools/NumIntegrators.h
-	$(CC) -o obj/NumIntegrators.o -c tools/NumIntegrators.cpp
+NumIntegrators.o: src/tools/NumIntegrators.cpp src/tools/NumIntegrators.h
+	$(CC) -o $(ODIR)/NumIntegrators.o -c src/tools/NumIntegrators.cpp
 
